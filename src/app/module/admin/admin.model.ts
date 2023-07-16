@@ -29,25 +29,49 @@ const AdminSchema: Schema<IAdmin> = new Schema<IAdmin>({
   },
 {
 timestamps: true,
+toJSON: {
+  virtuals: true,
+},
 } 
 );
 
 // Define a method to exclude the password field when converting to JSON
 AdminSchema.methods.toJSON = function() {
-    const obj = this.toObject();
-    delete obj.password;
-    return obj;
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
 };
 
-  AdminSchema.pre('save', async function (next) {
-    // hashing user password
-    const admin = this;
-    admin.password = await bcrypt.hash(
-      admin.password,
-      Number(config.bycrypt_salt_rounds)
-    );
-    next();
-  });
+AdminSchema.methods.isAdminExist = async function (phoneNumber: string): Promise<Pick<IAdmin, '_id' | 'role' | 'password' > | null> {
+  // check user is exist or not
+  const user = await Admin.findOne(
+    { phoneNumber },
+    { _id: 1, password: 1, role: 1 }
+  );
+  return user;
+};
+
+
+AdminSchema.methods.isPasswordMatched = async function (
+  givenPassword: string,
+  savedPassword: string
+): Promise<boolean> {
+  console.log(givenPassword, savedPassword)
+  const isPasswordMatched = await bcrypt.compare(givenPassword, savedPassword);
+  console.log(isPasswordMatched, 'FALSEL PASS')
+  return isPasswordMatched;
+};
+
+
+AdminSchema.pre('save', async function (next) {
+// hashing user password
+const admin = this;
+admin.password = await bcrypt.hash(
+    admin.password,
+    Number(config.bycrypt_salt_rounds)
+);
+next();
+});
 
 
 export const Admin = model<IAdmin, AdminModel>('Admin', AdminSchema);

@@ -1,8 +1,11 @@
-import { Schema, model } from "mongoose";
-import { IUser, UserModel } from "./user.interface";
-import { userRoles } from "./user.constant";
+/* eslint-disable @typescript-eslint/no-this-alias */
+import bcrypt from 'bcrypt';
 import httpStatus from "http-status";
+import { Schema, model } from "mongoose";
+import config from '../../../config';
 import ApiError from "../../../errors/ApiError";
+import { userRoles } from "./user.constant";
+import { IUser, UserModel } from "./user.interface";
 
 const userSchema = new Schema<IUser, UserModel>({
     password:{
@@ -18,7 +21,7 @@ const userSchema = new Schema<IUser, UserModel>({
         firstName: { type: String, required: true},
         lastName: { type: String, required: true},
     },
-    phoneNumber:{ type: String, required: true},
+    phoneNumber:{ type: String, required: true, unique: true},
     address: { type: String, required: true},
     budget:{ type: Number, required: true},
     income:{ type: Number, required: true},
@@ -27,14 +30,34 @@ const userSchema = new Schema<IUser, UserModel>({
     timestamps: true, // Mongodb will create 2 date(create and update) automatically in schema 
   }
   );
+
+  // Define a method to exclude the password field when converting to JSON
+userSchema.methods.toJSON = function() {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
+
+userSchema.pre('save', async function (next) {
+// hashing user password
+const user = this;
+user.password = await bcrypt.hash(
+  user.password,
+  Number(config.bycrypt_salt_rounds)
+);
+next();
+});
   
-  // Duplicate Error (phoneNumber)
-  userSchema.pre('save', async function(next){
-    const isExit = await User.findOne({phoneNumber: this.phoneNumber});
-    if(isExit){
-        throw new ApiError(httpStatus.CONFLICT, 'This User is already exits')
-    }
-    next()
-  })
+// Duplicate Error (phoneNumber)
+userSchema.pre('save', async function(next){
+  const isExit = await User.findOne({phoneNumber: this.phoneNumber});
+  if(isExit){
+      throw new ApiError(httpStatus.CONFLICT, 'This User is already exits')
+  }
+  next()
+})
+
+
 
   export const User = model<IUser, UserModel>('User', userSchema);
