@@ -9,6 +9,6 @@ export type ILoginUser = {
   };
   
   export type IRefreshTokenResponse = {
-    accessToken: string;
+    accessToken: string | null;
   };
   
