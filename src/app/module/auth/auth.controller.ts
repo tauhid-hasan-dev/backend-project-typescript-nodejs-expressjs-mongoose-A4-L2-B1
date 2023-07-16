@@ -3,8 +3,8 @@ import { Request, Response } from 'express';
 import config from "../../../config";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
+import { ILoginUserResponse, IRefreshTokenResponse } from './auth.interface';
 import { AuthService } from "./auth.services";
-import { ILoginUserResponse } from './auth.interface';
 
 const loginUser = catchAsync(async (req: Request, res: Response, next) => {
     const { ...loginData } = req.body;
@@ -27,7 +27,30 @@ const loginUser = catchAsync(async (req: Request, res: Response, next) => {
     });
   });
 
+  const refreshToken = catchAsync(async (req: Request, res: Response) => {
+    console.log(req.cookies)
+    const { refreshToken } = req.cookies;
+    console.log(refreshToken);
+  
+    const result = await AuthService.refreshToken(refreshToken);
+  
+    // set refresh token into cookie
+    const cookieOptions = {
+      secure: config.env === 'production',
+      httpOnly: true,
+    };
+  
+    res.cookie('refreshToken', refreshToken, cookieOptions);
+  
+    sendResponse<IRefreshTokenResponse>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'New access token generated successfully!',
+      data: result,
+    });
+  });
+
   export const AuthController = {
     loginUser,
-    /* refreshToken, */
+    refreshToken,
   };

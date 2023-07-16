@@ -1,11 +1,13 @@
 
-    import express, { Application, NextFunction, Request, Response } from 'express';
-import cors from 'cors'
+    import cors from 'cors';
+import express, { Application, NextFunction, Request, Response } from 'express';
 
-import globalErrorHandler from './middlewares/globalErrorHandler'
+import globalErrorHandler from './middlewares/globalErrorHandler';
 
-import routes from './routes'
-import httpStatus from 'http-status'
+import cookieParser from 'cookie-parser';
+import httpStatus from 'http-status';
+import routes from './routes';
+
 /* import ApiError from './errors/ApiError' */
 
 const app: Application = express()
@@ -16,6 +18,7 @@ app.use(cors())
 // parser
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser());
 
 // testing unhandled rejection
 

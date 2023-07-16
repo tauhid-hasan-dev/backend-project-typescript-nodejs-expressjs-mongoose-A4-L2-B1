@@ -26,7 +26,6 @@ const createAdminZodSchema = z.object({
 });
 
 
-
 export const AdminValidation = {
     createAdminZodSchema
   };

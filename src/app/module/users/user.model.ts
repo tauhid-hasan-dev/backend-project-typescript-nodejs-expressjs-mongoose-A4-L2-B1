@@ -30,11 +30,11 @@ const userSchema = new Schema<IUser, UserModel>({
   }
   );
 
-userSchema.methods.isAdminExist = async function (phoneNumber: string): Promise<Pick<IUser, '_id' | 'role' | 'password' > | null> {
+userSchema.methods.isAdminExist = async function (phoneNumber: string): Promise<Pick<IUser, '_id' | 'role' | 'password' | 'phoneNumber' > | null> {
   // check user is exist or not
   const user = await User.findOne(
     { phoneNumber },
-    { _id: 1, password: 1, role: 1 }
+    { _id: 1, password: 1, role: 1, phoneNumber: 1 }
   );
   return user;
 };

@@ -22,7 +22,7 @@ export type IUserMethods = {
    phoneNumber: string
   ): Promise<Pick<
     IUser,
-     '_id' |'role' | 'password' 
+     '_id' |'role' | 'password' | 'phoneNumber'
   > | null>;
 
   isPasswordMatched(

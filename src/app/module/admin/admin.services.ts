@@ -42,13 +42,13 @@ const createAdmin = async(user:IAdmin):Promise<IAdmin | null> => {
     const { _id: adminId, role } = isAdminExist;
   
     const accessToken = jwtHelpers.createToken(
-      { userId: adminId, role },
+      { userId: adminId, role , phoneNumber},
       config.jwt.secret as Secret,
       config.jwt.expires_in as string
     );
   
     const refreshToken = jwtHelpers.createToken(
-      { userId: adminId, role },
+      { userId: adminId, role, phoneNumber },
       config.jwt.refresh_secret as Secret,
       config.jwt.refresh_expires_in as string
     );
