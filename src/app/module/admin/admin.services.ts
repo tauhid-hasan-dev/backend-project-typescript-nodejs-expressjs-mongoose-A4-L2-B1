@@ -32,24 +32,23 @@ const createAdmin = async(user:IAdmin):Promise<IAdmin | null> => {
       throw new ApiError(httpStatus.NOT_FOUND, 'Admin does not exists');
     }
     
-  
     // match password (using instance methods)
     if (isAdminExist.password && !(await admin.isPasswordMatched(password, isAdminExist?.password))) {
       throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect');
       /* console.log('password is false SDKLFJHSDKLFJ') */
     }
-  
+
     //create access token & refresh token
-    const { _id: userId, role } = isAdminExist;
+    const { _id: adminId, role } = isAdminExist;
   
     const accessToken = jwtHelpers.createToken(
-      { userId, role },
+      { userId: adminId, role },
       config.jwt.secret as Secret,
       config.jwt.expires_in as string
     );
   
     const refreshToken = jwtHelpers.createToken(
-      { userId, role },
+      { userId: adminId, role },
       config.jwt.refresh_secret as Secret,
       config.jwt.refresh_expires_in as string
     );
@@ -59,6 +58,8 @@ const createAdmin = async(user:IAdmin):Promise<IAdmin | null> => {
       refreshToken,
     };
   };
+
+  
 
 
 export const AdminServices = {
