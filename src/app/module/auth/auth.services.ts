@@ -17,7 +17,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
     console.log(isUserExist);
     
     if (!isUserExist) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'Admin does not exists');
+      throw new ApiError(httpStatus.NOT_FOUND, 'User does not exists');
     }
     
     // match password (using instance methods)
@@ -45,6 +45,9 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
       refreshToken,
     };
   };
+
+
+
 
 
 export const AuthService = {
