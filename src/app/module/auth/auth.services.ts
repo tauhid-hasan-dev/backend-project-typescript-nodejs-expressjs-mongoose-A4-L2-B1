@@ -78,7 +78,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
         console.log(isUserExist);
 
         if (!isUserExist) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'User does not exists');
+            throw new ApiError(httpStatus.NOT_FOUND, 'User does not exists');
         }
 
         newAccessToken = jwtHelpers.createToken(
@@ -98,7 +98,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
         console.log(isAdminExist);
 
         if (!isAdminExist) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Admin does not exists');
+            throw new ApiError(httpStatus.NOT_FOUND, 'Admin does not exists');
         }
 
         newAccessToken = jwtHelpers.createToken(
@@ -112,7 +112,6 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
         );
     }
   
-    
     return {
       accessToken: newAccessToken,
     };
