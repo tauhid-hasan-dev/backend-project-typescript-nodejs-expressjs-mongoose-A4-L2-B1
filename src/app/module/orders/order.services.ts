@@ -1,11 +1,11 @@
 
 import httpStatus from "http-status";
+import mongoose from "mongoose";
 import ApiError from "../../../errors/ApiError";
 import { Cow } from "../cows/cow.model";
 import { User } from "../users/user.model";
 import { IOrder } from "./order.interfaces";
 import { Order } from "./order.model";
-import mongoose from "mongoose";
 /* import { ICow } from "../cows/cow.interface"; */
 /* import mongoose from "mongoose"; */
 
@@ -68,8 +68,33 @@ const getAllOrder = async(): Promise<IOrder[] | null>=> {
     return result;
 }
 
+const getSingleOrder = async(orderId: string, userId: string, role: string ): Promise<IOrder | null>=> {
+     
+    console.log(userId);
+    console.log(orderId);
+    console.log(role);
+
+    if(role === 'buyer'){
+      const  result = await Order.findOne({ _id: orderId , buyer: userId});
+      return result;
+    }
+
+    if(role === 'seller'){
+        const result = await Order.findOne({_id: orderId}).populate('cow').populate('buyer');
+        console.log(result)
+        if(result?.cow?.seller !== userId){
+            throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+        }
+        return result;
+    }
+
+    const result = await Order.findById(orderId).populate('cow').populate('buyer');
+    return result;
+}
+
 
 export const OrderServices = {
    createOrder,
-   getAllOrder
+   getAllOrder,
+   getSingleOrder
 }

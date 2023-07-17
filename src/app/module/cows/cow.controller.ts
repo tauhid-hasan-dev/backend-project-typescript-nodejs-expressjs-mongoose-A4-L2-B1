@@ -65,7 +65,6 @@ const getSingleCow = catchAsync(
 const updateSingleCow = catchAsync(
     async(req:Request, res: Response, next)=> {
         const  userId  = req?.user?.userId;
-        
         const cowId = req.params.id
         const updatedData = req.body
         const result = await CowServices.updateSingleCow(cowId, updatedData, userId);
