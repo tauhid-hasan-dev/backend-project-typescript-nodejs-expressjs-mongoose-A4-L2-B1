@@ -1,13 +1,13 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextFunction, Request, Response  } from "express";
-import catchAsync from "../../../shared/catchAsync";
-import { CowServices } from "./cow.services";
-import sendResponse from "../../../shared/sendResponse";
+import { Request, Response } from "express";
 import httpStatus from "http-status";
-import pick from "../../../shared/pick";
 import { paginationFields } from "../../../constants/pagination";
+import catchAsync from "../../../shared/catchAsync";
+import pick from "../../../shared/pick";
+import sendResponse from "../../../shared/sendResponse";
 import { ICow } from "./cow.interface";
+import { CowServices } from "./cow.services";
 
 const createCow = catchAsync(
     async(req:Request, res: Response, next)=> {
@@ -79,8 +79,11 @@ const updateSingleCow = catchAsync(
 
 const deleteSingleCow = catchAsync(
     async(req:Request, res: Response, next)=> {
-        const id = req.params.id
-        const result = await CowServices.deleteSingleCow(id);
+        
+        const  userId  = req?.user?.userId;
+        const cowId = req.params.id
+   
+        const result = await CowServices.deleteSingleCow(cowId, userId);
 
         sendResponse<ICow | null>(res, {
             statusCode: httpStatus.OK,

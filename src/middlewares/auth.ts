@@ -22,10 +22,14 @@ const auth = (...requiredRoles: string[]) =>
 
       req.user = verifiedUser; // role  , userid
 
+      /* console.log(verifiedUser) */
+
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
         throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden Access');
       }
+
+
       next();
     } catch (error) {
       next(error);

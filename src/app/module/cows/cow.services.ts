@@ -1,11 +1,13 @@
 
+import httpStatus from "http-status";
 import { SortOrder } from "mongoose";
+import ApiError from "../../../errors/ApiError";
 import { PaginationHelper } from "../../../helpers/paginationHelper";
 import { IGenericResponse } from "../../../interfaces/common";
 import { IPaginationOptions } from "../../../interfaces/pagination";
+import { cowsSearchableFields } from "./cow.constant";
 import { ICow, ICowFilter } from "./cow.interface";
 import { Cow } from "./cow.model";
-import { cowsSearchableFields } from "./cow.constant";
 
 const createCow = async(payload:ICow): Promise<ICow> => {
     const result = await Cow.create(payload);
@@ -90,8 +92,19 @@ const updateSingleCow = async(id: string , payload: Partial<ICow>): Promise<ICow
   }
 
 
-const deleteSingleCow = async(id: string ): Promise<ICow | null>=> {
-  const result = await Cow.findByIdAndDelete(id);
+const deleteSingleCow = async(cowId: string , userId: string): Promise<ICow | null>=> {
+  
+  const cow = await Cow.findOne({ _id: cowId , seller: userId});
+
+  if(cow === null){
+     throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized to delete this cow')
+  }
+
+  console.log(cow)
+  console.log(cowId, 'cow id in service');
+  console.log(userId, 'user id in service');
+
+  const result = await Cow.findByIdAndDelete(cowId);
   return result;
 }
 
