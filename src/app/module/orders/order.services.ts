@@ -69,10 +69,6 @@ const getAllOrder = async(): Promise<IOrder[] | null>=> {
 }
 
 const getSingleOrder = async(orderId: string, userId: string, role: string ): Promise<IOrder | null>=> {
-     
-    console.log(userId);
-    console.log(orderId);
-    console.log(role);
 
     if(role === 'buyer'){
       const  result = await Order.findOne({ _id: orderId , buyer: userId});
