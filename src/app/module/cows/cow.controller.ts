@@ -64,9 +64,11 @@ const getSingleCow = catchAsync(
 
 const updateSingleCow = catchAsync(
     async(req:Request, res: Response, next)=> {
-        const id = req.params.id
+        const  userId  = req?.user?.userId;
+        
+        const cowId = req.params.id
         const updatedData = req.body
-        const result = await CowServices.updateSingleCow(id, updatedData);
+        const result = await CowServices.updateSingleCow(cowId, updatedData, userId);
 
         sendResponse<ICow | null>(res, {
             statusCode: httpStatus.OK,

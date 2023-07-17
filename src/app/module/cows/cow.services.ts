@@ -84,8 +84,17 @@ const getSingleCow = async(id: string ): Promise<ICow | null>=> {
   return result;
 }
 
-const updateSingleCow = async(id: string , payload: Partial<ICow>): Promise<ICow | null>=> {
-  const result = await Cow.findOneAndUpdate({ _id: id }, payload, {
+const updateSingleCow = async(cowId: string , payload: Partial<ICow>, userId: string): Promise<ICow | null>=> {
+
+  const cow = await Cow.findOne({ _id: cowId , seller: userId});
+
+  console.log(userId)
+
+  if(cow === null){
+     throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized')
+  }
+
+  const result = await Cow.findOneAndUpdate({ _id: cowId }, payload, {
     new: true,
   });
   return result;
@@ -93,11 +102,11 @@ const updateSingleCow = async(id: string , payload: Partial<ICow>): Promise<ICow
 
 
 const deleteSingleCow = async(cowId: string , userId: string): Promise<ICow | null>=> {
-  
+
   const cow = await Cow.findOne({ _id: cowId , seller: userId});
 
   if(cow === null){
-     throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized to delete this cow')
+     throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized')
   }
 
   console.log(cow)

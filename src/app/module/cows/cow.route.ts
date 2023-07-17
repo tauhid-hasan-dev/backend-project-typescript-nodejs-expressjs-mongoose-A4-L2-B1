@@ -11,6 +11,6 @@ cowRouter.post('/cows',auth(ENUM_USER_ROLE.SELLER), validateRequest(CowValidatio
 cowRouter.get('/cows',auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.ADMIN), CowController.getAllCow)
 cowRouter.get('/cows/:id', auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.ADMIN), CowController.getSingleCow)
 cowRouter.delete('/cows/:id',auth(ENUM_USER_ROLE.SELLER), CowController.deleteSingleCow)
-cowRouter.patch('/cows/:id', validateRequest(CowValidation.updateCowZodSchema),CowController.updateSingleCow)
+cowRouter.patch('/cows/:id', auth(ENUM_USER_ROLE.SELLER), validateRequest(CowValidation.updateCowZodSchema),CowController.updateSingleCow)
 
 export const CowRoutes = cowRouter;
