@@ -9,7 +9,7 @@ import { jwtHelpers } from '../helpers/jwtHelpers';
 const auth = (...requiredRoles: string[]) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      
+      console.log(requiredRoles)
       //get authorization token (this is the access token)
       const token = req.headers.authorization;
       if (!token) {
@@ -22,10 +22,7 @@ const auth = (...requiredRoles: string[]) =>
 
       req.user = verifiedUser; // role  , userid
 
-      /* console.log(verifiedUser) */
-
-
-      console.log(verifiedUser)
+      console.log(verifiedUser.role)
       console.log(requiredRoles)
 
       // role diye guard korar jnno

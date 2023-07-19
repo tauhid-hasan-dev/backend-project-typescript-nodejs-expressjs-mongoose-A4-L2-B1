@@ -68,17 +68,21 @@ const getAllOrder = async(): Promise<IOrder[] | null>=> {
 }
 
 const getSingleOrder = async(orderId: string, userId: string, role: string ): Promise<IOrder | null>=> {
-
+     console.log(userId, role, orderId)
     if(role === 'buyer'){
-      const  result = await Order.findOne({ _id: orderId , buyer: userId});
-      return result;
+        const  result = await Order.findOne({ _id: orderId , buyer: userId}).populate('cow').populate('buyer');
+        if(!result){
+            throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized buyer');
+        }
+        console.log(result)
+        return result;
     }
 
     if(role === 'seller'){
         const result = await Order.findOne({_id: orderId}).populate('cow').populate('buyer');
         console.log(result)
         if(result?.cow?.seller !== userId){
-            throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+            throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized seller');
         }
         return result;
     }
