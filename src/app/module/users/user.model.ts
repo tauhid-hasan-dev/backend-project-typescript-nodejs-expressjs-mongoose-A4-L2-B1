@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-this-alias */
 import bcrypt from 'bcrypt';
+import httpStatus from 'http-status';
 import { Schema, model } from "mongoose";
 import config from '../../../config';
+import ApiError from '../../../errors/ApiError';
 import { userRoles } from "./user.constant";
 import { IUser, UserModel } from "./user.interface";
 
@@ -66,12 +68,12 @@ userSchema.pre('save', async function (next) {
 });
   
 // Duplicate Error (phoneNumber)
-/* userSchema.pre('save', async function(next){
+userSchema.pre('save', async function(next){
   const isExit = await User.findOne({phoneNumber: this.phoneNumber});
   if(isExit){
       throw new ApiError(httpStatus.CONFLICT, 'This User is already exits')
   }
   next()
-}) */
+})
 
 export const User = model<IUser, UserModel>('User', userSchema);

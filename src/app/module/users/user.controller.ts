@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {Request , Response} from "express";
-import { UserServices } from "./user.services"
+import { Request, Response } from "express";
 import httpStatus from "http-status";
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
-import { IUser } from "./user.interface";
+import { IUser, IUserProfile } from "./user.interface";
+import { UserServices } from "./user.services";
 
 const createUser = catchAsync(async(req: Request, res:Response )=> {    
         const user = req.body;
@@ -79,10 +79,32 @@ const deleteSingleUser = catchAsync(
         }
     )
 
+
+const getUserProfile = catchAsync(
+    async(req:Request, res: Response, next)=> {
+
+        const userId = req?.user?.userId
+        const role = req?.user?.role
+        const result = await UserServices.getUserProfile(userId, role);
+
+        const userProfile = result as IUserProfile;
+       
+        const { name, address, phoneNumber } = userProfile;
+
+        sendResponse<IUserProfile | null>(res, {
+            statusCode: httpStatus.OK,
+            success: true,
+            message: "User's information retrieved successfully",
+            data: {name, phoneNumber, address},
+        });
+    }
+)
+
 export const UserController = {
     createUser,
     getSingleUser,
     getAllUser,
     deleteSingleUser,
-    updateSingleUser
+    updateSingleUser,
+    getUserProfile,
 }

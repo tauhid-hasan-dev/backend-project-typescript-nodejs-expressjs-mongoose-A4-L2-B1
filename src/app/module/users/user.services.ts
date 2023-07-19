@@ -1,8 +1,8 @@
 
-import  config  from "../../../config";
+import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
-import { IUser } from "./user.interface"
-import { User } from "./user.model"
+import { IUser, IUserProfile } from "./user.interface";
+import { User } from "./user.model";
 
 const createUser = async(user:IUser):Promise<IUser | null> => {
    if(!user.password){
@@ -39,11 +39,19 @@ const deleteSingleUser = async(id: string ): Promise<IUser | null>=> {
     return result;
 }
 
+const getUserProfile = async(userId: string, role: string ): Promise<IUserProfile | null>=> {
+  console.log(userId, role)
+  const  result = await User.findOne({ _id: userId , role: role});
+  console.log(result);
+  return result;
+}
+
 
 export const UserServices = {
     createUser,
     getSingleUser,
     getAllUser,
     deleteSingleUser,
-    updateSingleUser
+    updateSingleUser,
+    getUserProfile
 }

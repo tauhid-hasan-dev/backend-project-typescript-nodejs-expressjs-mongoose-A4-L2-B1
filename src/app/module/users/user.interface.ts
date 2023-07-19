@@ -17,6 +17,15 @@ export type IUser = {
   _id?: string,
 }
 
+export type IUserProfile = {
+  name:{
+    firstName: string,
+    lastName: string
+  },
+  phoneNumber:string,
+  address: string,
+}
+
 export type IUserMethods = {
   isAdminExist(
    phoneNumber: string
