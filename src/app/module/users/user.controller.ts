@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Request, Response } from "express";
 import httpStatus from "http-status";
+import config from '../../../config';
 import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import { IUser, IUserProfile } from "./user.interface";
@@ -30,8 +32,6 @@ const getAllUser = catchAsync(async(req: Request, res:Response )=> {
                 data: result
         })       
 })
-
-
 
 
 const getSingleUser = catchAsync(
@@ -111,8 +111,8 @@ const updateUserProfile = catchAsync(async (req: Request, res: Response) => {
     const upatedUserProfile = result as IUserProfile;
        
     const { name, address, phoneNumber } = upatedUserProfile;
-  
-    sendResponse<IUser | null>(res, {
+
+    sendResponse<IUserProfile | null>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: "User's information updated successfully!",

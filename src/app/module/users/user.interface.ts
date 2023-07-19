@@ -24,6 +24,7 @@ export type IUserProfile = {
   },
   phoneNumber:string,
   address: string,
+  password: string
 }
 
 export type IUserMethods = {

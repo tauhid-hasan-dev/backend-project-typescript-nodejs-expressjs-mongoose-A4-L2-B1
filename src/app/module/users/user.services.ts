@@ -1,4 +1,5 @@
 
+import bcrypt from 'bcrypt';
 import httpStatus from "http-status";
 import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
@@ -58,7 +59,7 @@ const updateUserProfile = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'User profile not found !');
   }
 
-  const { name, ...userData } = payload;
+  const { name, password, ...userData } = payload;
   const updatedUserData: Partial<IUser> = { ...userData };
 
   if (name && Object.keys(name).length > 0) {
@@ -66,6 +67,11 @@ const updateUserProfile = async (
       const nameKey = `name.${key}` as keyof Partial<IUser>; // converting a new property of user object 
       (updatedUserData as any)[nameKey] = name[key as keyof typeof name]; // the just udating the previous value 
     });
+  }
+  
+  // password is being hashed before updating 
+  if(password){
+    updatedUserData.password = await bcrypt.hash(password, Number(config.bycrypt_salt_rounds));
   }
   const result = await User.findOneAndUpdate({ _id: userId }, updatedUserData, {
     new: true,

@@ -8,12 +8,11 @@ import { UserValidation } from './user.validation';
 const userRouter = express.Router();
 
 userRouter.post('/auth/signup', validateRequest(UserValidation.createUserZodSchema), UserController.createUser);
-userRouter.get('/users/my-profile', auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER), UserController.getUserProfile);
-userRouter.patch('/users/my-profile', auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER), UserController.updateUserProfile);
-userRouter.get('/users/:id',  auth(ENUM_USER_ROLE.ADMIN),UserController.getSingleUser);
-userRouter.delete('/users/:id', auth(ENUM_USER_ROLE.ADMIN), UserController.deleteSingleUser);
-userRouter.patch('/users/:id', auth(ENUM_USER_ROLE.ADMIN), validateRequest(UserValidation.updateUserZodSchema), UserController.updateSingleUser);
+userRouter.get('/users/my-profile', auth( ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER), UserController.getUserProfile);  // checked - ok
+userRouter.patch('/users/my-profile', auth( ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER), UserController.updateUserProfile); // checked -ok 
+userRouter.get('/users/:id',  auth(ENUM_USER_ROLE.ADMIN),UserController.getSingleUser); // checked - ok
+userRouter.delete('/users/:id', auth(ENUM_USER_ROLE.ADMIN), UserController.deleteSingleUser); // checked - ok 
+userRouter.patch('/users/:id', auth(ENUM_USER_ROLE.ADMIN), validateRequest(UserValidation.updateUserZodSchema), UserController.updateSingleUser); // checked - ok
 
 
-
-export const UserRoutes = userRouter
+export const UserRoutes = userRouter;

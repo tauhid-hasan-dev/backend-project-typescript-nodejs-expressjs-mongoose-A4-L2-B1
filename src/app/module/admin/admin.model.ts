@@ -58,7 +58,7 @@ AdminSchema.methods.isPasswordMatched = async function (
 ): Promise<boolean> {
   console.log(givenPassword, savedPassword)
   const isPasswordMatched = await bcrypt.compare(givenPassword, savedPassword);
-  console.log(isPasswordMatched, 'FALSEL PASS')
+  console.log(isPasswordMatched, 'password matched')
   return isPasswordMatched;
 };
 
