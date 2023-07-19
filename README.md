@@ -32,17 +32,17 @@
    - Route: https://example.com/api/v1/admins/login (POST)
    
    ### User
-   - Route: https://example.com/api/v1/users (GET)  Include an id that is saved in your database
-   - Route: https://example.com/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
-   - Route: https://example.com/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH) Include an id that is saved in your database
-   - Route: https://example.com/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+   - Route: https://example.com/api/v1/users (GET)  
+   - Route: https://example.com/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) 
+   - Route: https://example.com/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH) 
+   - Route: https://example.com/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) 
 
    #### Cows
    - Route: https://example.com/api/v1/cows (POST)
    - Route: https://example.com/api/v1/cows (GET)
-   - Route: https://example.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
-   - Route: https://example.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (PATCH) Include an id that is saved in your database
-   - Route: https://example.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+   - Route: https://example.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (Single GET) 
+   - Route: https://example.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (PATCH) 
+   - Route: https://example.com/api/v1/cows/6177a5b87d32123f08d2f5d4 (DELETE) 
 
    #### Orders
    - Route: https://example.com/api/v1/orders (POST)
