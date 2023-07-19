@@ -1,4 +1,5 @@
 
+import httpStatus from "http-status";
 import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
 import { IUser, IUserProfile } from "./user.interface";
@@ -47,11 +48,39 @@ const getUserProfile = async(userId: string, role: string ): Promise<IUserProfil
 }
 
 
+const updateUserProfile = async (
+  userId: string, role: string,
+  payload: Partial<IUser>
+): Promise<IUserProfile | null> => {
+  const isExist = await User.findOne({ _id : userId, role: role });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User profile not found !');
+  }
+
+  const { name, ...userData } = payload;
+  const updatedUserData: Partial<IUser> = { ...userData };
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}` as keyof Partial<IUser>; // converting a new property of user object 
+      (updatedUserData as any)[nameKey] = name[key as keyof typeof name]; // the just udating the previous value 
+    });
+  }
+  const result = await User.findOneAndUpdate({ _id: userId }, updatedUserData, {
+    new: true,
+  });
+
+  return result;
+};
+
+
 export const UserServices = {
     createUser,
     getSingleUser,
     getAllUser,
     deleteSingleUser,
     updateSingleUser,
-    getUserProfile
+    getUserProfile,
+    updateUserProfile
 }

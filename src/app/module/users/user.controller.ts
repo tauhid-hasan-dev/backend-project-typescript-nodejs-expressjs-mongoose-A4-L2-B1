@@ -100,6 +100,26 @@ const getUserProfile = catchAsync(
     }
 )
 
+
+const updateUserProfile = catchAsync(async (req: Request, res: Response) => {
+    const userId = req?.user?.userId
+    const role = req?.user?.role
+    const updatedData = req.body;
+
+    const result = await UserServices.updateUserProfile(userId, role, updatedData);
+
+    const upatedUserProfile = result as IUserProfile;
+       
+    const { name, address, phoneNumber } = upatedUserProfile;
+  
+    sendResponse<IUser | null>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "User's information updated successfully!",
+      data: { name, address, phoneNumber },
+    });
+  });
+
 export const UserController = {
     createUser,
     getSingleUser,
@@ -107,4 +127,5 @@ export const UserController = {
     deleteSingleUser,
     updateSingleUser,
     getUserProfile,
+    updateUserProfile
 }
