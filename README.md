@@ -46,8 +46,7 @@
 
    #### Orders
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders (POST) → Buyer
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders (GET) → Admin, Specific Buyer, Specific Seller
-
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders (GET) → Admin
  ## Bonus Part
 
 #### Admin
@@ -58,4 +57,4 @@
 - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/my-profile (PATCH)
 
 #### Order:
- - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders/6177a5b87d32123f08d2f5d4 (GET)
+ - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders/6177a5b87d32123f08d2f5d4 (GET) → Admin, Specific Buyer, Specific Seller
