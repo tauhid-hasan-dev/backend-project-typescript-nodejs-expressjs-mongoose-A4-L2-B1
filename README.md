@@ -33,9 +33,9 @@
    
    ### User
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users (GET) → Can only be accessed by admin
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (Single GET) → Only admin can access
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (PATCH) → Can only be accessed by admin
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (DELETE) → Can only be accessed by admin
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (Single GET) → Admin
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (PATCH) → Admin
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (DELETE) → Admin
 
    #### Cows
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows (POST)
