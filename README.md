@@ -38,11 +38,11 @@
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/users/64b810552d166d0d5289e241 (DELETE) → Admin
 
    #### Cows
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows (POST)
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows (GET)
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows/64b82b859bd3f0265e9b7b85 (Single GET) 
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows/64b82b859bd3f0265e9b7b85 (PATCH) 
-   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows/64b82b859bd3f0265e9b7b85 (DELETE) 
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows (POST) → Seller
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows (GET) → Admin, Seller, Buyer
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows/64b82b859bd3f0265e9b7b85 (Single GET) → Admin, Seller, Buyer
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows/64b82b859bd3f0265e9b7b85 (PATCH) → Seller
+   - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/cows/64b82b859bd3f0265e9b7b85 (DELETE) → Seller
 
    #### Orders
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders (POST)
