@@ -42,13 +42,9 @@ const updateUserZodSchema = z.object({
             required_error: 'role is required',
           }).optional(),
           name: z.object({
-            firstName: z.string({
-              required_error: 'firstName is required',
-            }),
-            lastName: z.string({
-              required_error: 'lastName is required',
-            }),
-          }).optional(),
+            firstName: z.string().optional(),
+            middleName: z.string().optional(),
+          }),
           phoneNumber: z.string({
             required_error: 'phoneNumber is required',
           }).optional(),

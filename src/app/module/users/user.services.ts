@@ -30,11 +30,33 @@ const getSingleUser = async(id: string ): Promise<IUser | null>=> {
 
 
 const updateSingleUser = async(id: string , payload: Partial<IUser>): Promise<IUser | null>=> {
-  const result = await User.findOneAndUpdate({ _id: id }, payload, {
+
+  const isExist = await User.findOne({ _id: id });
+
+  if (!isExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User profile not found !');
+  }
+  console.log(isExist);
+  console.log(payload);
+  const { name, ...userData } = payload;
+  console.log(name)
+  const updatedUserData: Partial<IUser> = { ...userData };
+
+  if (name && Object.keys(name).length > 0) {
+    Object.keys(name).forEach(key => {
+      const nameKey = `name.${key}` as keyof Partial<IUser>; // converting a new property of user object 
+      (updatedUserData as any)[nameKey] = name[key as keyof typeof name]; // the just udating the previous value 
+    });
+  }
+
+  console.log(updatedUserData)
+
+  const result = await User.findOneAndUpdate({ _id: id }, updatedUserData, {
     new: true,
   });
   return result;
   }
+
 
 const deleteSingleUser = async(id: string ): Promise<IUser | null>=> {
     const result = await User.findByIdAndDelete(id);
