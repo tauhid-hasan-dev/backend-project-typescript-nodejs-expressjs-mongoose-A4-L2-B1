@@ -3,7 +3,7 @@
 ### Github Private Repository: https://github.com/Porgramming-Hero-web-course/l2b1a4-cow-hut-admin-auth-tauhid-hasan-dev
 ### Live Link: https://level-2-assignment-4-tauhidhasan.vercel.app/
 ---
-### Important features of this project:
+### Important features implimented in this project:
 
 - Auth validation
 - Hashing password
