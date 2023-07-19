@@ -13,7 +13,6 @@ const AdminSchema: Schema<IAdmin> = new Schema<IAdmin>({
         select: 0,
     },
     name: {
-        type: {
           firstName: {
             type: String,
             required: true,
@@ -22,17 +21,9 @@ const AdminSchema: Schema<IAdmin> = new Schema<IAdmin>({
             type: String,
             required: true,
           }
-        },
-        required: true,
       },
     address: { type: String, required: true },
   },
-{
-timestamps: true,
-toJSON: {
-  virtuals: true,
-},
-} 
 );
 
 // Define a method to exclude the password field when converting to JSON
