@@ -1,13 +1,15 @@
-# Digital Cow Hut Backend Assignment - Tauhid Hasan
+# Cow Hut Admin With Auth- Backend Assignment 4 - Tauhid Hasan
 
-### Github Private Repository: https://github.com/Programming-Hero-Web-Course4/l2a3-cow-hut-backend-assignment-tauhid-hasan-dev
-### Live Link: https://digital-cow-hut-backend-blue.vercel.app
+### Github Private Repository: https://github.com/Porgramming-Hero-web-course/l2b1a4-cow-hut-admin-auth-tauhid-hasan-dev
+### Live Link: https://level-2-assignment-4-tauhidhasan.vercel.app/
 ---
 ### Important features of this project:
 
+- Auth validation
+- Hashing password
 - Implement error handling
 - CRUD operations
-- pagination and filtering
+- Pagination and filtering
 - Transactions and rollback
 
 ### Technology used in this project:
