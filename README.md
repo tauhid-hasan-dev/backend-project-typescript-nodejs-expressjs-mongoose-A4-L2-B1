@@ -46,7 +46,6 @@
    #### Orders
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders (POST) → Buyer
    - Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/orders (GET) → Admin
- ## Bonus Part
 
 #### Admin
    -Route: https://level-2-assignment-4-tauhidhasan.vercel.app/api/v1/admins/create-admin (POST)
