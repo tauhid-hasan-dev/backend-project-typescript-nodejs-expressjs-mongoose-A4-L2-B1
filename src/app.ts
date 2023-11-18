@@ -1,5 +1,4 @@
-
-    import cors from 'cors';
+import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 
 import globalErrorHandler from './middlewares/globalErrorHandler';
@@ -10,14 +9,14 @@ import routes from './routes';
 
 /* import ApiError from './errors/ApiError' */
 
-const app: Application = express()
+const app: Application = express();
 
 // cors
-app.use(cors())
+app.use(cors());
 
 // parser
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // testing unhandled rejection
@@ -26,27 +25,29 @@ app.use(cookieParser());
     Promise.reject(new Error ('Unhandled Promise Rejection'))
 }) */
 
-app.use('/api/v1/', routes)
+app.use('/api/v1/', routes);
 
-app.use(globalErrorHandler)
+app.use(globalErrorHandler);
 
 //  handle not found route
 app.get('/', (req, res) => {
-  res.send('Cow-hut-admin-by-assignment-4-tauhid-hasan: Server is running...........')
-})
+  res.send(
+    'Cow hut auth project by Tauhid Hasan: Server is running...........'
+  );
+});
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-    res.status(httpStatus.NOT_FOUND).json({
-      success: false,
-      message: 'Not Found',
-      errorMessage: [
-        {
-          path: req.originalUrl,
-          message: 'API Not Found For Cow Hut',
-        },
-      ],
-    });
-    next();
+  res.status(httpStatus.NOT_FOUND).json({
+    success: false,
+    message: 'Not Found',
+    errorMessage: [
+      {
+        path: req.originalUrl,
+        message: 'API Not Found For Cow Hut',
+      },
+    ],
   });
+  next();
+});
 
-export default app
+export default app;
