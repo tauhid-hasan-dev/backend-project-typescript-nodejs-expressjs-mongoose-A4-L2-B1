@@ -19,8 +19,6 @@
 ---
 ### Application Routes:
   
-  ## Main part
-  
    ### Auth (User)
    - Route: https://backend-server-a4-l2-b1.vercel.app/api/v1/auth/login (POST)
    - Route: https://backend-server-a4-l2-b1.vercel.app/api/v1/auth/signup (POST)
