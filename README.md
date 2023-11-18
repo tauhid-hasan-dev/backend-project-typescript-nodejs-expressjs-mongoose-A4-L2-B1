@@ -1,6 +1,6 @@
 # Cow Hut Admin Project With Auth by Tauhid Hasan
 
-### Live Link: https://level-2-assignment-4-tauhidhasan.vercel.app/
+### Server Live Link: https://backend-project-typescript-nodejs-expressjs-mongoose-a4-l2-b1.vercel.app/
 ---
 ### Important features implimented in this project:
 
